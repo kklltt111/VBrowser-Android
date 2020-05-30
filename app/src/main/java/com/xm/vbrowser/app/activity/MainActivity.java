@@ -839,7 +839,20 @@ public class MainActivity extends Activity implements EasyPermissions.Permission
                     EventBus.getDefault().post(new ShowToastMessageEvent("下载任务添加成功"));
                 }
             });
+            
+            holder.itemNewItemTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    VideoInfo videoInfo = (VideoInfo) v.getTag();
+                    EventBus.getDefault().post(new ShowToastMessageEvent(videoInfo.getUrl()));
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    //创建ClipData对象
+                    ClipData clipData = ClipData.newPlainText("simple text copy", videoInfo.getUrl());
+                    //添加ClipData对象到剪切板中
+                    clipboardManager.setPrimaryClip(clipData);
 
+                }
+            });
             return convertView;
         }
 
